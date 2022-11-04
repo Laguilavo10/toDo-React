@@ -14,7 +14,7 @@ import {TodoSearch} from './components/TodoSearch'
 // console.log(todo)
 let todo = [
 
-  {text:'Guardar las etiquetas en el LocalStorage', completed:false},
+  {text:'Guardar las etiquetas en el LocalStorage', completed:true},
 
   {text:'Hacer el boton de eliminar Tarea', completed:false},
 
