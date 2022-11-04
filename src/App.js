@@ -27,17 +27,9 @@ let todo = [
 function App() {
   return (
     <>
-      <TodoCounter daklsnd='jol'>
-          <p>
-            dsadsadhjgashjdashjgdjh
-          </p>
-          <span>
-            <p></p>
-          </span>
-      </TodoCounter>
-
+      <TodoCounter/>
       <TodoSearch/>
-      <TodoList uwu='sahjgdv'>
+      <TodoList>
         {todo.map((a)=><TodoItem key={a.text} text={a.text} completed={a.completed}/>)}
       </TodoList>
       <CreateTodo/>
