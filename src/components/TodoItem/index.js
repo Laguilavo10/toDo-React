@@ -3,10 +3,7 @@ import React from 'react'
 
 
 
-export function TodoItem(props, {check}) {
-
-
-  
+export function TodoItem(props) {
   return (
     <>
       <li className='item-todo'>
