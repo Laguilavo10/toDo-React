@@ -19,13 +19,22 @@ p{
     color: var(--naraja);
 }
 
+button{
+    color: black;
+}
+
 body{
     background-color: var(--back-color);
+}
+
+.invisible{
+    display: none !important;
 }
 
 .icons:hover{
     cursor: pointer;
 }
+
 #root{
     background-color: var(--color-todo);
     display: flex;
@@ -216,6 +225,25 @@ body{
     
 }
 
+.modal-create-todo{
+    background-color: rgba(0, 0, 0, 0.671);
+    width: 50%;
+    height: 50%;
+    position: fixed;
+    min-width: 250px;
+    align-self: center;
+    top: 25%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 50px;
+
+}
+
+.modal-create-todo input{
+    color: black;
+}
 
 
 

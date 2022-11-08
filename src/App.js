@@ -8,25 +8,12 @@ import { TodoSearch } from "./components/TodoSearch";
 import { CreateProfile } from "./components/CreateProfile";
 import { Profile } from "./components/Profile";
 
-// console.log(todo)
-let todo = [
-  { text: "Guardar las etiquetas en el LocalStorage", completed: true },
-
-  { text: "Hacer el boton de eliminar Tarea", completed: false },
-
-  { text: "Terminar el generador de contraseñas", completed: false },
-
-  { text: "Revisar Logical Nullish Assignment", completed: false },
-];
-
 let usuarios = [
   {
     nombre: "Andres Laguilavo",
     picture:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn5p81IgpgYHIH4d50ZsVISnCLulPACHzyAPu1DGkMIQ&s",
-    tasks: [
-
-    ],
+    tasks: [],
   },
   {
     nombre: "Rocio Ruiz",
@@ -37,7 +24,7 @@ let usuarios = [
     ],
   },
   {
-    nombre: "Visitante",
+    nombre: "Random",
     picture: "https://img.icons8.com/ios-filled/50/null/guest-male--v1.png",
     tasks: [
       { text: "Guardar las etiquetas en el LocalStorage", completed: true },
@@ -53,27 +40,28 @@ let usuarios = [
 
 function App() {
   const [usuarioActivo, setUsuarioActivo] = useState(
-    usuarios.find((a) => a.nombre === "Visitante")
+    usuarios.find((a) => a.nombre === "Random")
   );
-   const cambiarUsuario = (user)=>{
-    setUsuarioActivo(user)
+  const cambiarUsuario = (user) => {
+    setUsuarioActivo(user);
+  };
 
-   }
-  
   return (
     <>
       <div className="profiles-container">
         {usuarios.map((usuario) => {
           return (
             <Profile
-            key={usuario.nombre}
-            name={usuario.nombre}
-            picture={usuario.picture}
-            onSelect={()=>{cambiarUsuario(usuario)}}
+              key={usuario.nombre}
+              name={usuario.nombre}
+              picture={usuario.picture}
+              onSelect={() => {
+                cambiarUsuario(usuario);
+              }}
             />
-            );
-          })}
-          <CreateProfile />
+          );
+        })}
+        <CreateProfile />
       </div>
 
       <TodoCounter user={usuarioActivo} />
@@ -81,7 +69,6 @@ function App() {
       <TodoSearch />
 
       <TodoList>
-        {/* Por el usuario activo se renderiza sus tareas */}
         {usuarioActivo.tasks.map((a) => (
           <TodoItem key={a.text} text={a.text} completed={a.completed} />
         ))}
