@@ -7,6 +7,7 @@
     font-family: 'Rubik', sans-serif;
     color: white;
 }
+
 :root{
     --back-color:#5d616e;
     --color-todo:#323642;
@@ -36,6 +37,57 @@ body{
     min-width: 300px;
 }
 
+.profiles-container{
+    display: flex;
+    justify-content: end;
+}
+
+.profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+}
+
+.pic-profile{
+    width: 50px;
+    background-color: var(--back-containers);
+    height: 50px;
+    border-radius: 50px;
+    overflow: hidden;
+    background-color: aliceblue;
+    
+}
+
+.pic-profile > img{
+    width: 100%;
+}
+
+.user-profile{
+    font-size: .8rem;
+    text-align: center;
+    margin: 5px;
+}
+
+.new-profile{
+    width: 50px;
+    background-color: var(--back-containers);
+    height: 50px;
+    border-radius: 50px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+
+}
+/* .new-profile > span{
+    position: absolute;
+    font-size: 0.8rem;
+    text-align: center;
+    width: 60px;
+    bottom: -20px;
+} */
 .header-todo{
     display: flex;
     justify-content: space-between;
@@ -50,6 +102,7 @@ body{
     height: 5rem;
     border-radius: 50px;
     border: 2px solid black;
+    background-color: aliceblue;
 }
 
 .header-todo > div > p{
@@ -76,7 +129,7 @@ body{
 }
 
 .input-search > input{
-    width: 90%;
+    width: 100%;
     background-color: var(--back-containers);
     border: none;
     padding: 0 10px;
@@ -133,6 +186,10 @@ body{
 
 .item-todo > span{
     margin-top: 3px;
+}
+
+.todo-checked{
+    text-decoration-line: line-through;
 }
 
 .created-date{
