@@ -124,11 +124,7 @@ function App() {
     );
   }
 
-  function numeroAMes(numero) {
-    let meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-    return meses[numero-1]
- }
-
+  console.log(usuarioActivo.tasks);
   return (
     <>
       <div className="profiles-container">
@@ -148,6 +144,7 @@ function App() {
         })}
         <CreateProfile />
       </div>
+
       <div className="todo-container">
         <TodoCounter user={usuarioActivo} />
 
@@ -168,31 +165,7 @@ function App() {
           ))}
         </TodoList>
 
-        <CreateTodo
-          usuarioActivo={usuarioActivo}
-          onCreate={(a) => {
-            a.preventDefault();
-            
-            let today = new Date();
-            let now = today.toLocaleDateString('en-ES');
-            let [mes, dia, año] = now.split('/')
-            mes = numeroAMes(mes)
-
-            usuarioActivo.tasks.push({
-              text: a.target.form[0].value,
-              completed: false,
-              fechaCreacion: {
-                dia,
-                mes,
-                año,
-              }})
-              
-            let nuevoItem = [...usuarioActivo.tasks]
-            setToDos(nuevoItem)
-            a.target.form[0].value = ''
-          }}
-        />
-        
+        <CreateTodo Tareas={usuarioActivo.tasks} setToDos={setToDos} />
       </div>
     </>
   );
