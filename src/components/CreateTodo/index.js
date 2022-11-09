@@ -27,7 +27,9 @@ export const CreateTodo = ({ Tareas, setToDos }) => {
     let now = today.toLocaleDateString("en-ES");
     let [mes, dia, año] = now.split("/");
     mes = numeroAMes(mes);
-
+    if (a.target.form[0].value === '') {
+      return
+    }
     Tareas.push({
       text: a.target.form[0].value,
       completed: false,
@@ -56,14 +58,16 @@ export const CreateTodo = ({ Tareas, setToDos }) => {
           alt=""
         />
       </button>
-      <div className={`modal-create-todo ${cerrado && "invisible"}`}>
-        <button onClick={() => {setcerrado(true)}}>
+
+      {/* MODAL */}
+      <div className={`modal-create-todo ${cerrado && "invisible"} `}>
+        <button className='icons' onClick={() => {setcerrado(true)}}>
           X
         </button>
         <h3>Crear nuevo ToDO</h3>
-        <form action="">
+        <form>
           <input type="text" />
-          <button onClick={(a) => {crearToDo(a, Tareas, setToDos);}}>
+          <button className='icons' onClick={(a) => {crearToDo(a, Tareas, setToDos);}}>
               Crear
           </button>
         </form>

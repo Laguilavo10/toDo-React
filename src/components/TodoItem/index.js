@@ -2,7 +2,7 @@ import React from 'react'
 
 
 export function TodoItem(props) {
-
+  // console.log(props)
   let fechaToDo = Object.values(props.fechaCreacion).join("/")
 
   return (
@@ -18,7 +18,7 @@ export function TodoItem(props) {
 
           <span className={`${props.completed && 'todo-checked'}`}>{props.text}</span>
         <div className='delete-container'>
-          <img src="https://img.icons8.com/ios-filled/50/null/x.png" alt="delete" id='delete' className='icons'/>
+          <img src="https://img.icons8.com/ios-filled/50/null/x.png" alt="delete" id='delete' className='icons' onClick={props.onDelete}/>
 
         </div>
         <span className='created-date'>Creado el {fechaToDo}</span>
