@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 
-export const CreateTodo = () => {
+export const CreateTodo = (props) => {
   const [cerrado, setcerrado] = useState(true)
-  
+  // console.log(props.onCreate)
   return (
     <>
       <button className="create-todo icons" onClick={()=>{setcerrado(false)}}>
@@ -14,8 +14,10 @@ export const CreateTodo = () => {
       <div className={`modal-create-todo ${cerrado && 'invisible'}`}>
         <button onClick={()=>{setcerrado(true)}}>X</button>
         <h3>Crear nuevo ToDO</h3>
+        <form action="">
         <input type="text" />
-        <button >Crear</button>
+        <button onClick={props.onCreate} >Crear</button>
+        </form>
       </div>
     </>
   );

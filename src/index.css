@@ -37,13 +37,22 @@ body{
 }
 
 #root{
+    /* background-color: var(--color-todo);
+    display: flex;
+    flex-direction: column; */
+
+    margin: 2rem;
+    /* border-radius: 20px; */
+    /* padding: 30px; */
+    /* min-width: 300px; */
+}
+
+.todo-container{
     background-color: var(--color-todo);
     display: flex;
     flex-direction: column;
-    /* height: 100vh; */
-    margin: 2rem;
     border-radius: 20px;
-    padding: 30px;
+    padding: 20px;
     min-width: 300px;
 }
 
@@ -91,6 +100,11 @@ body{
 
 
 }
+
+.user-active{
+    border: 2px solid var(--naraja);
+}
+
 /* .new-profile > span{
     position: absolute;
     font-size: 0.8rem;
@@ -177,9 +191,6 @@ body{
 
 }
 
-.hola{
-    background-color: aqua;
-}
 
 #check{
     width: 2rem;

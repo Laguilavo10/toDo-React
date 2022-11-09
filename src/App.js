@@ -13,7 +13,17 @@ let usuarios = [
     nombre: "Andres Laguilavo",
     picture:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn5p81IgpgYHIH4d50ZsVISnCLulPACHzyAPu1DGkMIQ&s",
-    tasks: [],
+    tasks: [
+      {
+        text: "Crear logica del Modal de creacion de TODOs",
+        completed: false,
+        fechaCreacion: {
+          dia: "8",
+          mes: "Nov",
+          año: "2022",
+        },
+      },
+    ],
   },
   {
     nombre: "Rocio Ruiz",
@@ -23,7 +33,11 @@ let usuarios = [
       {
         text: "Guardar las etiquetas en el LocalStorage",
         completed: true,
-        fechaCreacion: "",
+        fechaCreacion: {
+          dia: "20",
+          mes: "Jul",
+          año: "2022",
+        },
       },
     ],
   },
@@ -89,17 +103,16 @@ let usuarios = [
 //   return meses[numero-1]
 // }
 
-
-
 function App() {
   const [usuarioActivo, setUsuarioActivo] = useState(
-    usuarios.find((a) => a.nombre === "Random")
+    usuarios.find((a) => a.nombre === "Andres Laguilavo")
   );
 
   const [buscarTodo, setBuscarTodo] = useState("");
 
   const [toDos, setToDos] = useState(usuarioActivo.tasks);
   const [isCheck, setIsCheck] = useState(usuarioActivo.completed);
+
   let toDoArray = [];
 
   if (buscarTodo === "") {
@@ -110,7 +123,12 @@ function App() {
       a.text.toLowerCase().includes(buscarTodoMinusculas)
     );
   }
-  console.log(usuarioActivo)
+
+  function numeroAMes(numero) {
+    let meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+    return meses[numero-1]
+ }
+
   return (
     <>
       <div className="profiles-container">
@@ -121,35 +139,61 @@ function App() {
               name={usuario.nombre}
               picture={usuario.picture}
               onSelect={() => {
-                setUsuarioActivo(usuario)
-                setToDos(usuario.tasks)
+                setUsuarioActivo(usuario);
+                setToDos(usuario.tasks);
               }}
+              userActive={usuarioActivo}
             />
           );
         })}
         <CreateProfile />
       </div>
+      <div className="todo-container">
+        <TodoCounter user={usuarioActivo} />
 
-      <TodoCounter user={usuarioActivo} />
+        <TodoSearch buscarTodo={buscarTodo} setBuscarTodo={setBuscarTodo} />
 
-      <TodoSearch buscarTodo={buscarTodo} setBuscarTodo={setBuscarTodo} />
+        <TodoList>
+          {toDoArray.map((a, index) => (
+            <TodoItem
+              key={index}
+              text={a.text}
+              completed={a.completed}
+              fechaCreacion={a.fechaCreacion}
+              onChecked={() => {
+                !isCheck ? setIsCheck(true) : setIsCheck(false);
+                a.completed ? (a.completed = false) : (a.completed = true); //sirve de toggle para poder tachar y destachar el toDo
+              }}
+            />
+          ))}
+        </TodoList>
 
-      <TodoList>
-        {toDoArray.map((a) => (
-          <TodoItem
-            key={a.text}
-            text={a.text}
-            completed={a.completed}
-            fechaCreacion={a.fechaCreacion}
-            onChecked={() => {
-              !isCheck ? setIsCheck(true) : setIsCheck(false);
-              a.completed ? (a.completed = false) : (a.completed = true); //sirve de toggle para poder tachar y destachar el toDo
-            }}
-          />
-        ))}
-      </TodoList>
+        <CreateTodo
+          usuarioActivo={usuarioActivo}
+          onCreate={(a) => {
+            a.preventDefault();
+            
+            let today = new Date();
+            let now = today.toLocaleDateString('en-ES');
+            let [mes, dia, año] = now.split('/')
+            mes = numeroAMes(mes)
 
-      <CreateTodo />
+            usuarioActivo.tasks.push({
+              text: a.target.form[0].value,
+              completed: false,
+              fechaCreacion: {
+                dia,
+                mes,
+                año,
+              }})
+              
+            let nuevoItem = [...usuarioActivo.tasks]
+            setToDos(nuevoItem)
+            a.target.form[0].value = ''
+          }}
+        />
+        
+      </div>
     </>
   );
 }

@@ -1,6 +1,4 @@
-import React, {useState} from 'react'
-
-
+import React from 'react'
 
 
 export function TodoItem(props) {
@@ -18,7 +16,7 @@ export function TodoItem(props) {
             onClick={props.onChecked}
             />
 
-          <span className={`uwu ${props.completed && 'todo-checked'}`}>{props.text}</span>
+          <span className={`${props.completed && 'todo-checked'}`}>{props.text}</span>
         <div className='delete-container'>
           <img src="https://img.icons8.com/ios-filled/50/null/x.png" alt="delete" id='delete' className='icons'/>
 
