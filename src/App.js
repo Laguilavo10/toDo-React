@@ -33,7 +33,7 @@ let usuarios = [
     tasks: [
       {
         text: "Guardar las etiquetas en el LocalStorage",
-        completed: true,
+        completed: false,
         fechaCreacion: {
           dia: "18",
           mes: "Oct",
@@ -89,30 +89,28 @@ let usuarios = [
 //   return meses[numero-1]
 // }
 
-// console.log(Object.values(usuarios[2].tasks[0].fechaCreacion).join("/")); //forma para poder unir la fecha
+
 
 function App() {
   const [usuarioActivo, setUsuarioActivo] = useState(
     usuarios.find((a) => a.nombre === "Random")
   );
-  const cambiarUsuario = (user) => {
-    setUsuarioActivo(user);
-  };
-  const [buscarTodo, setBuscarTodo] = useState("");
-  // console.log(usuarioActivo.tasks)
 
+  const [buscarTodo, setBuscarTodo] = useState("");
+
+  const [toDos, setToDos] = useState(usuarioActivo.tasks);
+  const [isCheck, setIsCheck] = useState(usuarioActivo.completed);
   let toDoArray = [];
 
   if (buscarTodo === "") {
-    toDoArray = usuarioActivo.tasks;
+    toDoArray = toDos;
   } else {
     let buscarTodoMinusculas = buscarTodo.toLowerCase();
-    toDoArray = usuarioActivo.tasks.filter((a) => {
-      if (a.text.toLowerCase().includes(buscarTodoMinusculas)) {
-        return a;
-      }});
+    toDoArray = usuarioActivo.tasks.filter((a) =>
+      a.text.toLowerCase().includes(buscarTodoMinusculas)
+    );
   }
-
+  console.log(usuarioActivo)
   return (
     <>
       <div className="profiles-container">
@@ -123,7 +121,8 @@ function App() {
               name={usuario.nombre}
               picture={usuario.picture}
               onSelect={() => {
-                cambiarUsuario(usuario);
+                setUsuarioActivo(usuario)
+                setToDos(usuario.tasks)
               }}
             />
           );
@@ -137,7 +136,16 @@ function App() {
 
       <TodoList>
         {toDoArray.map((a) => (
-          <TodoItem key={a.text} text={a.text} completed={a.completed} />
+          <TodoItem
+            key={a.text}
+            text={a.text}
+            completed={a.completed}
+            fechaCreacion={a.fechaCreacion}
+            onChecked={() => {
+              !isCheck ? setIsCheck(true) : setIsCheck(false);
+              a.completed ? (a.completed = false) : (a.completed = true); //sirve de toggle para poder tachar y destachar el toDo
+            }}
+          />
         ))}
       </TodoList>
 

@@ -217,6 +217,9 @@ body{
 
 .todo-checked{
     text-decoration-line: line-through;
+    /* background-color: aqua; */
+    font-style: italic;
+    color: #747474;
 }
 
 .created-date{
