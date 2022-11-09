@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-export const CreateTodo = ({ Tareas, setToDos }) => {
+export const CreateTodo = ({ Tareas, setToDos, usuariosArray, usuario}) => {
   const [cerrado, setcerrado] = useState(true);
-
+  // console.log(usuarios)
   function numeroAMes(numero) {
     let meses = [
       "Ene",
@@ -21,7 +21,7 @@ export const CreateTodo = ({ Tareas, setToDos }) => {
     return meses[numero - 1];
   }
 
-  function crearToDo(a, Tareas, setToDos) {
+  function crearToDo(a, Tareas, setToDos, usuariosArray, usuario) {
     a.preventDefault();
     let today = new Date();
     let now = today.toLocaleDateString("en-ES");
@@ -41,7 +41,14 @@ export const CreateTodo = ({ Tareas, setToDos }) => {
     });
 
     let nuevoItem = [...Tareas];
+    
     setToDos(nuevoItem);
+    
+    console.log(nuevoItem)
+    console.log(Tareas)
+    console.log(usuario)
+    console.log(usuariosArray)
+    localStorage.setItem('profile', JSON.stringify(usuariosArray))
     a.target.form[0].value = "";
   }
 
@@ -67,7 +74,7 @@ export const CreateTodo = ({ Tareas, setToDos }) => {
         <h3>Crear nuevo ToDO</h3>
         <form>
           <input type="text" />
-          <button className='icons' onClick={(a) => {crearToDo(a, Tareas, setToDos);}}>
+          <button className='icons' onClick={(a) => {crearToDo(a, Tareas, setToDos, usuariosArray, usuario);}}>
               Crear
           </button>
         </form>
