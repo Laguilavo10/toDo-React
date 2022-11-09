@@ -4,7 +4,7 @@ import React from 'react'
 export function TodoItem(props) {
   // console.log(props)
   let fechaToDo = Object.values(props.fechaCreacion).join("/")
-
+  // console.log(props.reference)
   return (
     <>
       <li className='item-todo'>

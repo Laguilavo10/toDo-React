@@ -10,6 +10,7 @@ import { Profile } from "./components/Profile";
 
 let usuarios = [
   {
+    id:0,
     nombre: "Andres Laguilavo",
     picture:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn5p81IgpgYHIH4d50ZsVISnCLulPACHzyAPu1DGkMIQ&s",
@@ -25,6 +26,41 @@ let usuarios = [
       },
     ],
   },
+  {
+    id:1,
+    nombre: "Visitante",
+    picture:
+      "https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&w=1000",
+    tasks: [
+      {
+        text: "Crear logica del Modal de creacion de TODOsxx",
+        completed: false,
+        fechaCreacion: {
+          dia: "10",
+          mes: "Nov",
+          año: "2022",
+        },
+      },
+    ],
+  },
+  {
+    id:2,
+    nombre: "Rocio Ruiz",
+    picture:
+      "https://img.freepik.com/vector-premium/madre-feliz-dibujos-animados-abrazando-su-hijo_29190-4562.jpg?w=2000",
+    tasks: [
+      {
+        text: "Querer al hijo",
+        completed: false,
+        fechaCreacion: {
+          dia: "10",
+          mes: "Nov",
+          año: "2022",
+        },
+      },
+    ],
+  },
+  
 ];
 
 function App() {
@@ -57,7 +93,7 @@ function App() {
       <div className="profiles-container">
         {
         
-        users.map((usuario, i) => {
+        users.map((usuario) => {
           // console.log(usuario)
           return (
             <Profile
@@ -89,17 +125,19 @@ function App() {
               completed={a.completed}
               fechaCreacion={a.fechaCreacion}
               onChecked={() => {
+                // console.log(usuarios)
                 !isCheck ? setIsCheck(true) : setIsCheck(false);
-                a.completed ? (a.completed = false) : (a.completed = true); //sirve de toggle para poder tachar y destachar el toDo
-                usuarios[index].tasks = [...toDoArray]
-                console.log(usuarios)
+                a.completed ? (a.completed = false) : (a.completed = true);//sirve de toggle para poder tachar y destachar el toDo
+                let userSelect = usuarios.find((a)=>(a.nombre === usuarioActivo.nombre))
+                usuarios[userSelect.id].tasks = [...toDoArray]
                 localStorage.setItem('profile', JSON.stringify(usuarios))
               }}
               onDelete={()=>{
                 usuarioActivo.tasks.splice(index, 1)
                 let nose = [...usuarioActivo.tasks]
                 setToDos(nose)
-                usuarios[index].tasks = [...nose]
+                let userSelect = usuarios.find((a)=>(a.nombre === usuarioActivo.nombre))
+                usuarios[userSelect.id].tasks = [...toDoArray]
                 localStorage.setItem('profile', JSON.stringify(usuarios))
               }}
             />

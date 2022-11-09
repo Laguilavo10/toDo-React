@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
-export const CreateTodo = ({ Tareas, setToDos, usuariosArray, usuario}) => {
+export const CreateTodo = (props) => {
   const [cerrado, setcerrado] = useState(true);
-  // console.log(usuarios)
+  // console.log()
+  // console.log(props)
+
   function numeroAMes(numero) {
     let meses = [
       "Ene",
@@ -30,6 +32,7 @@ export const CreateTodo = ({ Tareas, setToDos, usuariosArray, usuario}) => {
     if (a.target.form[0].value === '') {
       return
     }
+
     Tareas.push({
       text: a.target.form[0].value,
       completed: false,
@@ -40,15 +43,23 @@ export const CreateTodo = ({ Tareas, setToDos, usuariosArray, usuario}) => {
       },
     });
 
-    let nuevoItem = [...Tareas];
-    
-    setToDos(nuevoItem);
-    
-    console.log(nuevoItem)
-    console.log(Tareas)
-    console.log(usuario)
+
+    // let prueba = JSON.parse(localStorage.getItem('profile'))
+    // let saber = prueba.findIndex((a)=>(a.nombre === usuario.nombre))
+    // let nuevoItem = [...Tareas];
+    // prueba[saber].tasks = [...nuevoItem]
+    // setToDos(prueba);
+    // localStorage.setItem('profile', JSON.stringify(prueba))
+    // a.target.form[0].value = "";
+
+    let prueba = JSON.parse(localStorage.getItem('profile'))
+    console.log(prueba)
     console.log(usuariosArray)
-    localStorage.setItem('profile', JSON.stringify(usuariosArray))
+    let saber = prueba.findIndex((a)=>(a.nombre === usuario.nombre))
+    let nuevoItem = [...Tareas];
+    prueba[saber].tasks = [...nuevoItem]
+    setToDos(nuevoItem);
+    localStorage.setItem('profile', JSON.stringify(prueba))
     a.target.form[0].value = "";
   }
 
@@ -74,7 +85,7 @@ export const CreateTodo = ({ Tareas, setToDos, usuariosArray, usuario}) => {
         <h3>Crear nuevo ToDO</h3>
         <form>
           <input type="text" />
-          <button className='icons' onClick={(a) => {crearToDo(a, Tareas, setToDos, usuariosArray, usuario);}}>
+          <button className='icons' onClick={(a) => {crearToDo(a, props.Tareas, props.setToDos, props.usuariosArray, props.usuario);}}>
               Crear
           </button>
         </form>
