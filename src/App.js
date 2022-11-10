@@ -10,8 +10,8 @@ import { Profile } from "./components/Profile";
 
 let usuarios = [
   {
-    id:0,
-    nombre: "Incognito",
+    default:false,
+    nombre: "Andres Laguilavo",
     picture:
       "https://uploads-ssl.webflow.com/6246bd29cda6cb50b4a9920e/62a060a9be0c5462c8f1a0bf_istockphoto-1352857051-612x612-1.jpeg",
     tasks: [
@@ -27,13 +27,12 @@ let usuarios = [
     ],
   },
   {
-    id:1,
-    nombre: "Andres Laguilavo",
-    picture:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn5p81IgpgYHIH4d50ZsVISnCLulPACHzyAPu1DGkMIQ&s",
+    default:true,
+    nombre: "Visitante",
+    picture: "https://img.icons8.com/ios-filled/50/null/guest-male--v1.png",
     tasks: [
       {
-        text: "Crear logica del Modal de creacion de TODOs",
+        text: "Guardar los ToDos y los perfile en el LocalStorage",
         completed: false,
         fechaCreacion: {
           dia: "8",
@@ -45,14 +44,18 @@ let usuarios = [
   },
 ];
 
+
 function App() {
-  let users = JSON.parse(localStorage.getItem('profile'))
 
-  if (!users) {
-    localStorage.setItem('profile', JSON.stringify(usuarios))
+  let usersLS = JSON.parse(localStorage.getItem('usuarios'))
+  
+  if (!usersLS) {
+    localStorage.setItem('usuarios', JSON.stringify(usuarios))
+    usersLS = JSON.parse(localStorage.getItem('usuarios'))
   }
-
-  const [usuarioActivo, setUsuarioActivo] = useState(users[0]);
+  
+  const [usuarioActivo, setUsuarioActivo] = useState(
+    usersLS.find((a)=>(a.default)) || usersLS[0]);
 
   const [buscarTodo, setBuscarTodo] = useState("");
 
@@ -69,12 +72,10 @@ function App() {
       a.text.toLowerCase().includes(buscarTodoMinusculas)
     );
   }
-// console.log(users)
   return (
     <>
       <div className="profiles-container">
-        {
-        users.map((usuario) => {
+        {usersLS.map((usuario) => {
           return (
             <Profile
               key={usuario.nombre}
@@ -87,8 +88,8 @@ function App() {
               userActive={usuarioActivo}
             />
           );
-        })}  
-        <CreateProfile arrayPerfiles={users} setUsuarioActivo={setUsuarioActivo}/>
+        })}
+        <CreateProfile usersLS={usersLS} setUsuarioActivo={setUsuarioActivo} setToDos={setToDos}/>
       </div>
 
       <div className="todo-container">
@@ -105,30 +106,26 @@ function App() {
               completed={a.completed}
               fechaCreacion={a.fechaCreacion}
               onChecked={() => {
-                a.completed ? (a.completed = false) : (a.completed = true);//sirve de toggle para poder tachar y destachar el toDo
-                console.log(a)
-                // let userSelect = usuarios.find((b)=>(b.nombre === usuarioActivo.nombre))
-                // console.log(userSelect)
-                // console.log(usuarioActivo)
-                console.log(usuarioActivo.tasks)
-                usuarios[usuarioActivo.id].tasks = [...usuarioActivo.tasks]
-                console.log(usuarios)
-                localStorage.setItem('profile', JSON.stringify(usuarios))
-                setIsCheck (true)
+                !isCheck ? setIsCheck(true) : setIsCheck(false);
+                a.completed ? (a.completed = false) : (a.completed = true); //sirve de toggle para poder tachar y destachar el toDo
+                let i = usersLS.findIndex((a)=>(a.nombre === usuarioActivo.nombre))
+                usersLS[i].tasks = [...usuarioActivo.tasks]
+                localStorage.setItem('usuarios', JSON.stringify(usersLS))
               }}
               onDelete={()=>{
                 usuarioActivo.tasks.splice(index, 1)
-                let nose = [...usuarioActivo.tasks]
-                setToDos(nose)
-                let userSelect = usuarios.find((a)=>(a.nombre === usuarioActivo.nombre))
-                usuarios[userSelect.id].tasks = [...usuarioActivo.tasks]
-                localStorage.setItem('profile', JSON.stringify(usuarios))
+                let toDoEdited = [...usuarioActivo.tasks]
+
+                let i = usersLS.findIndex((a)=>(a.nombre === usuarioActivo.nombre))
+                usersLS[i].tasks = [...toDoEdited]
+                setToDos(toDoEdited)
+                localStorage.setItem('usuarios', JSON.stringify(usersLS))
               }}
             />
           ))}
         </TodoList>
 
-        <CreateTodo Tareas={usuarioActivo.tasks} setToDos={setToDos} usuariosArray={usuarios} usuario={usuarioActivo}/>
+        <CreateTodo usuarioActivo={usuarioActivo} tasks={usuarioActivo.tasks} setToDos={setToDos} users={usersLS}/>
       </div>
     </>
   );
