@@ -45,7 +45,7 @@ export const CreateTodo = (props) => {
     let nuevoItem = [...tasks];
     props.users[i].tasks= [...nuevoItem]
     setToDos(nuevoItem);
-    localStorage.setItem('profile', JSON.stringify(prueba))
+    // localStorage.setItem('profile', JSON.stringify(prueba))
     a.target.form[0].value = "";
     localStorage.setItem('usuarios', JSON.stringify(props.users))
   }

@@ -9,37 +9,37 @@ import { CreateProfile } from "./components/CreateProfile";
 import { Profile } from "./components/Profile";
 
 let usuarios = [
-  {
-    default:false,
-    nombre: "Andres Laguilavo",
-    picture:
-      "https://uploads-ssl.webflow.com/6246bd29cda6cb50b4a9920e/62a060a9be0c5462c8f1a0bf_istockphoto-1352857051-612x612-1.jpeg",
-    tasks: [
-      {
-        text: "dasbdjkjshdjksah",
-        completed: false,
-        fechaCreacion: {
-          dia: "10",
-          mes: "Nov",
-          año: "2022",
-        },
-      },
-    ],
-  },
+  // {
+  //   default:false,
+  //   nombre: "Andres Laguilavo",
+  //   picture:
+  //     "https://uploads-ssl.webflow.com/6246bd29cda6cb50b4a9920e/62a060a9be0c5462c8f1a0bf_istockphoto-1352857051-612x612-1.jpeg",
+  //   tasks: [
+  //     {
+  //       text: "dasbdjkjshdjksah",
+  //       completed: false,
+  //       fechaCreacion: {
+  //         dia: "10",
+  //         mes: "Nov",
+  //         año: "2022",
+  //       },
+  //     },
+  //   ],
+  // },
   {
     default:true,
     nombre: "Visitante",
     picture: "https://img.icons8.com/ios-filled/50/null/guest-male--v1.png",
     tasks: [
-      {
-        text: "Guardar los ToDos y los perfile en el LocalStorage",
-        completed: false,
-        fechaCreacion: {
-          dia: "8",
-          mes: "Nov",
-          año: "2022",
-        },
-      },
+      // {
+      //   text: "Guardar los ToDos y los perfile en el LocalStorage",
+      //   completed: false,
+      //   fechaCreacion: {
+      //     dia: "8",
+      //     mes: "Nov",
+      //     año: "2022",
+      //   },
+      // },
     ],
   },
 ];
