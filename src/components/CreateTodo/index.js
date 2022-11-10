@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-export const CreateTodo = ({ Tareas, setToDos }) => {
-  const [cerrado, setcerrado] = useState(true);
+export const CreateTodo = (props) => {
+  const [abierto, setAbierto] = useState(false);
 
   function numeroAMes(numero) {
     let meses = [
@@ -21,7 +21,7 @@ export const CreateTodo = ({ Tareas, setToDos }) => {
     return meses[numero - 1];
   }
 
-  function crearToDo(a, Tareas, setToDos) {
+  function crearToDo(a, tasks, setToDos) {
     a.preventDefault();
     let today = new Date();
     let now = today.toLocaleDateString("en-ES");
@@ -30,7 +30,10 @@ export const CreateTodo = ({ Tareas, setToDos }) => {
     if (a.target.form[0].value === '') {
       return
     }
-    Tareas.push({
+
+
+
+    tasks.push({
       text: a.target.form[0].value,
       completed: false,
       fechaCreacion: {
@@ -40,9 +43,12 @@ export const CreateTodo = ({ Tareas, setToDos }) => {
       },
     });
 
-    let nuevoItem = [...Tareas];
+    let i = props.users.findIndex((a)=>(a.nombre === props.usuarioActivo.nombre))
+    let nuevoItem = [...tasks];
+    props.users[i].tasks= [...nuevoItem]
     setToDos(nuevoItem);
     a.target.form[0].value = "";
+    localStorage.setItem('usuarios', JSON.stringify(props.users))
   }
 
   return (
@@ -50,7 +56,7 @@ export const CreateTodo = ({ Tareas, setToDos }) => {
       <button
         className="create-todo icons"
         onClick={() => {
-          setcerrado(false);
+          setAbierto(true);
         }}
       >
         <img
@@ -60,14 +66,14 @@ export const CreateTodo = ({ Tareas, setToDos }) => {
       </button>
 
       {/* MODAL */}
-      <div className={`modal-create-todo ${cerrado && "invisible"} `}>
-        <button className='icons' onClick={() => {setcerrado(true)}}>
+      <div className={`modal-create-todo ${!abierto && "invisible"} `}>
+        <button className='icons' onClick={() => {setAbierto(false)}}>
           X
         </button>
         <h3>Crear nuevo ToDO</h3>
         <form>
           <input type="text" />
-          <button className='icons' onClick={(a) => {crearToDo(a, Tareas, setToDos);}}>
+          <button className='icons' onClick={(a) => {crearToDo(a, props.tasks, props.setToDos);}}>
               Crear
           </button>
         </form>

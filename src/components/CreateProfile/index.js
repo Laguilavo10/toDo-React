@@ -1,5 +1,4 @@
 import React from "react";
-// import { usuarios } from "../../App";
 
 export function CreateProfile() {
   // const crearUsuario = () => {

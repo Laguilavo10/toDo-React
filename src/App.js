@@ -10,6 +10,7 @@ import { Profile } from "./components/Profile";
 
 let usuarios = [
   {
+    default:false,
     nombre: "Andres Laguilavo",
     picture:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn5p81IgpgYHIH4d50ZsVISnCLulPACHzyAPu1DGkMIQ&s",
@@ -26,22 +27,7 @@ let usuarios = [
     ],
   },
   {
-    nombre: "Rocio Ruiz",
-    picture:
-      "https://img.freepik.com/vector-premium/madre-feliz-dibujos-animados-abrazando-su-hijo_29190-4562.jpg?w=2000",
-    tasks: [
-      {
-        text: "Guardar las etiquetas en el LocalStorage",
-        completed: true,
-        fechaCreacion: {
-          dia: "20",
-          mes: "Jul",
-          año: "2022",
-        },
-      },
-    ],
-  },
-  {
+    default:true,
     nombre: "Visitante",
     picture: "https://img.icons8.com/ios-filled/50/null/guest-male--v1.png",
     tasks: [
@@ -88,30 +74,23 @@ let usuarios = [
   },
 ];
 
-//* sive para poder registrar la hora en la que se crea el todo
-
-// let today = new Date();
-
-// let now = today.toLocaleDateString('en-ES');
-
-// let [mes, dia, año] = now.split('/')
-
-// mes = numeroAMes(mes)
-
-// function numeroAMes(numero) {
-//   let meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-//   return meses[numero-1]
-// }
 
 function App() {
+
+  let usersLS = JSON.parse(localStorage.getItem('usuarios'))
+  
+  if (!usersLS) {
+    localStorage.setItem('usuarios', JSON.stringify(usuarios))
+    usersLS = JSON.parse(localStorage.getItem('usuarios'))
+  }
+  
   const [usuarioActivo, setUsuarioActivo] = useState(
-    usuarios.find((a) => a.nombre === "Visitante")
-  );
+    usersLS.find((a)=>(a.default)));
 
   const [buscarTodo, setBuscarTodo] = useState("");
 
   const [toDos, setToDos] = useState(usuarioActivo.tasks);
-  const [isCheck, setIsCheck] = useState(usuarioActivo.completed);
+  const [isCheck, setIsCheck] = useState(false);
 
   let toDoArray = [];
 
@@ -123,11 +102,10 @@ function App() {
       a.text.toLowerCase().includes(buscarTodoMinusculas)
     );
   }
-
   return (
     <>
       <div className="profiles-container">
-        {usuarios.map((usuario) => {
+        {usersLS.map((usuario) => {
           return (
             <Profile
               key={usuario.nombre}
@@ -160,17 +138,24 @@ function App() {
               onChecked={() => {
                 !isCheck ? setIsCheck(true) : setIsCheck(false);
                 a.completed ? (a.completed = false) : (a.completed = true); //sirve de toggle para poder tachar y destachar el toDo
+                let i = usersLS.findIndex((a)=>(a.nombre === usuarioActivo.nombre))
+                usersLS[i].tasks = [...usuarioActivo.tasks]
+                localStorage.setItem('usuarios', JSON.stringify(usersLS))
               }}
               onDelete={()=>{
                 usuarioActivo.tasks.splice(index, 1)
-                let uwu = [...usuarioActivo.tasks]
-                setToDos(uwu)
+                let toDoEdited = [...usuarioActivo.tasks]
+
+                let i = usersLS.findIndex((a)=>(a.nombre === usuarioActivo.nombre))
+                usersLS[i].tasks = [...toDoEdited]
+                setToDos(toDoEdited)
+                localStorage.setItem('usuarios', JSON.stringify(usersLS))
               }}
             />
           ))}
         </TodoList>
 
-        <CreateTodo Tareas={usuarioActivo.tasks} setToDos={setToDos} />
+        <CreateTodo usuarioActivo={usuarioActivo} tasks={usuarioActivo.tasks} setToDos={setToDos} users={usersLS}/>
       </div>
     </>
   );
