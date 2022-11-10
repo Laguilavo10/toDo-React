@@ -13,7 +13,7 @@
   --color-todo: #323642;
   --back-containers: #3d4351;
   --naraja: #fc755b;
-  --back-modal: rgba(0, 0, 0, 0.671);
+  --back-modal: rgba(0, 0, 0, 0.801);
 }
 
 p {
@@ -75,10 +75,13 @@ body {
   border-radius: 50px;
   overflow: hidden;
   background-color: aliceblue;
+  border: 5px solid #323642;
 }
 
 .pic-profile > img {
   width: 100%;
+  height: 100%;
+
 }
 
 .user-profile {
@@ -102,13 +105,7 @@ body {
   border: 2px solid var(--naraja);
 }
 
-/* .new-profile > span{
-    position: absolute;
-    font-size: 0.8rem;
-    text-align: center;
-    width: 60px;
-    bottom: -20px;
-} */
+
 .header-todo {
   display: flex;
   justify-content: space-between;
@@ -122,8 +119,8 @@ body {
   width: 5rem;
   height: 5rem;
   border-radius: 50px;
-  border: 2px solid black;
-  background-color: aliceblue;
+  border: 5px solid black;
+  /* background-color: aliceblue; */
 }
 
 .header-todo > div > p {
@@ -251,7 +248,8 @@ body {
   box-shadow: 5px 5px 5px black;
 }
 
-.modal-create-todo {
+.modal {
+  z-index: 20;
   background-color: var(--back-modal);
   width: 34%;
   position: fixed;
@@ -266,7 +264,7 @@ body {
   padding: 20px;
 }
 
-.modal-create-todo > button {
+.modal > button {
   border-radius: 50px;
   font-weight: 900;
   /* padding: 10px; */
@@ -277,7 +275,7 @@ body {
   align-items: center;
 }
 
-.modal-create-todo > form {
+.modal > form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -286,17 +284,26 @@ body {
   color: white;
 }
 
-.modal-create-todo > form > input {
+.modal > form > input {
     width: 90%;
     padding: 5px;
     border-radius: 10px;
     border: none;
     outline: 2px solid white;
     background-color: var(--back-containers);
-
 }
 
-.modal-create-todo > form > button {
+.modal > form > label > input {
+    margin: 10px;
+    width: 90%;
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    outline: 2px solid white;
+    background-color: var(--back-containers);
+}
+
+.modal > form > button {
     width: 40%;
     padding: 5px;
     border-radius: 10px;
@@ -305,9 +312,9 @@ body {
     color: white;
 }
 
-/* .modal-create-todo input{
-    color: black;
-} */
+.modal-user{
+  top: 15%;
+}
 
 @media (width < 300px) {
   #root {

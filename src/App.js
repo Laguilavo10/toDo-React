@@ -11,6 +11,23 @@ import { Profile } from "./components/Profile";
 let usuarios = [
   {
     id:0,
+    nombre: "Incognito",
+    picture:
+      "https://uploads-ssl.webflow.com/6246bd29cda6cb50b4a9920e/62a060a9be0c5462c8f1a0bf_istockphoto-1352857051-612x612-1.jpeg",
+    tasks: [
+      {
+        text: "dasbdjkjshdjksah",
+        completed: false,
+        fechaCreacion: {
+          dia: "10",
+          mes: "Nov",
+          año: "2022",
+        },
+      },
+    ],
+  },
+  {
+    id:1,
     nombre: "Andres Laguilavo",
     picture:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn5p81IgpgYHIH4d50ZsVISnCLulPACHzyAPu1DGkMIQ&s",
@@ -26,41 +43,6 @@ let usuarios = [
       },
     ],
   },
-  {
-    id:1,
-    nombre: "Visitante",
-    picture:
-      "https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&w=1000",
-    tasks: [
-      {
-        text: "Crear logica del Modal de creacion de TODOsxx",
-        completed: false,
-        fechaCreacion: {
-          dia: "10",
-          mes: "Nov",
-          año: "2022",
-        },
-      },
-    ],
-  },
-  {
-    id:2,
-    nombre: "Rocio Ruiz",
-    picture:
-      "https://img.freepik.com/vector-premium/madre-feliz-dibujos-animados-abrazando-su-hijo_29190-4562.jpg?w=2000",
-    tasks: [
-      {
-        text: "Querer al hijo",
-        completed: false,
-        fechaCreacion: {
-          dia: "10",
-          mes: "Nov",
-          año: "2022",
-        },
-      },
-    ],
-  },
-  
 ];
 
 function App() {
@@ -87,15 +69,13 @@ function App() {
       a.text.toLowerCase().includes(buscarTodoMinusculas)
     );
   }
-
+console.log(users)
   return (
     <>
       <div className="profiles-container">
-        ddddddddd
         {
         
         users.map((usuario) => {
-          // console.log(usuario)
           return (
             <Profile
               key={usuario.nombre}
@@ -108,8 +88,9 @@ function App() {
               userActive={usuarioActivo}
             />
           );
-        })}
-        <CreateProfile />
+          // console.log(users)
+        })}  
+        <CreateProfile arrayPerfiles={users} setUsuarioActivo={setUsuarioActivo}/>
       </div>
 
       <div className="todo-container">

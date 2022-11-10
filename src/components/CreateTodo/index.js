@@ -78,7 +78,7 @@ export const CreateTodo = (props) => {
       </button>
 
       {/* MODAL */}
-      <div className={`modal-create-todo ${cerrado && "invisible"} `}>
+      <div className={`modal ${cerrado && "invisible"} `}>
         <button className='icons' onClick={() => {setcerrado(true)}}>
           X
         </button>
