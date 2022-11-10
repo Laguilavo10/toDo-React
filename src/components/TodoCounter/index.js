@@ -5,6 +5,10 @@ export function TodoCounter({user}) {
   let tareasPendientes = user.tasks.length
   return (
     <>
+    {/* <div>
+      <span>Default</span>
+      <button>onClick</button>
+    </div> */}
     <header className='header-todo'>
       <div>
         <h1>Hi, {user.nombre}</h1>

@@ -85,7 +85,7 @@ function App() {
   }
   
   const [usuarioActivo, setUsuarioActivo] = useState(
-    usersLS.find((a)=>(a.default)));
+    usersLS.find((a)=>(a.default)) || usersLS[0]);
 
   const [buscarTodo, setBuscarTodo] = useState("");
 
@@ -119,7 +119,7 @@ function App() {
             />
           );
         })}
-        <CreateProfile />
+        <CreateProfile usersLS={usersLS} setUsuarioActivo={setUsuarioActivo} setToDos={setToDos}/>
       </div>
 
       <div className="todo-container">

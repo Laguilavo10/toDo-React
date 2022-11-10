@@ -31,8 +31,6 @@ export const CreateTodo = (props) => {
       return
     }
 
-
-
     tasks.push({
       text: a.target.form[0].value,
       completed: false,
@@ -66,7 +64,7 @@ export const CreateTodo = (props) => {
       </button>
 
       {/* MODAL */}
-      <div className={`modal-create-todo ${!abierto && "invisible"} `}>
+      <div className={`modal ${!abierto && "invisible"} `}>
         <button className='icons' onClick={() => {setAbierto(false)}}>
           X
         </button>
