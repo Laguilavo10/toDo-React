@@ -57,7 +57,7 @@ function App() {
   const [buscarTodo, setBuscarTodo] = useState("");
 
   const [toDos, setToDos] = useState(usuarioActivo.tasks);
-  const [isCheck, setIsCheck] = useState(usuarioActivo.completed);
+  const [isCheck, setIsCheck] = useState(false);
 
   let toDoArray = [];
 
@@ -69,12 +69,11 @@ function App() {
       a.text.toLowerCase().includes(buscarTodoMinusculas)
     );
   }
-console.log(users)
+// console.log(users)
   return (
     <>
       <div className="profiles-container">
         {
-        
         users.map((usuario) => {
           return (
             <Profile
@@ -88,7 +87,6 @@ console.log(users)
               userActive={usuarioActivo}
             />
           );
-          // console.log(users)
         })}  
         <CreateProfile arrayPerfiles={users} setUsuarioActivo={setUsuarioActivo}/>
       </div>
@@ -107,19 +105,23 @@ console.log(users)
               completed={a.completed}
               fechaCreacion={a.fechaCreacion}
               onChecked={() => {
-                // console.log(usuarios)
-                !isCheck ? setIsCheck(true) : setIsCheck(false);
                 a.completed ? (a.completed = false) : (a.completed = true);//sirve de toggle para poder tachar y destachar el toDo
-                let userSelect = usuarios.find((a)=>(a.nombre === usuarioActivo.nombre))
-                usuarios[userSelect.id].tasks = [...toDoArray]
+                console.log(a)
+                // let userSelect = usuarios.find((b)=>(b.nombre === usuarioActivo.nombre))
+                // console.log(userSelect)
+                // console.log(usuarioActivo)
+                console.log(usuarioActivo.tasks)
+                usuarios[usuarioActivo.id].tasks = [...usuarioActivo.tasks]
+                console.log(usuarios)
                 localStorage.setItem('profile', JSON.stringify(usuarios))
+                setIsCheck (true)
               }}
               onDelete={()=>{
                 usuarioActivo.tasks.splice(index, 1)
                 let nose = [...usuarioActivo.tasks]
                 setToDos(nose)
                 let userSelect = usuarios.find((a)=>(a.nombre === usuarioActivo.nombre))
-                usuarios[userSelect.id].tasks = [...toDoArray]
+                usuarios[userSelect.id].tasks = [...usuarioActivo.tasks]
                 localStorage.setItem('profile', JSON.stringify(usuarios))
               }}
             />

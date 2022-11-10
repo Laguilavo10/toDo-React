@@ -2,9 +2,9 @@ import React from 'react'
 
 
 export function TodoItem(props) {
-  // console.log(props)
+// const [isCheck, setIsCheck] = useState(props.completed)
   let fechaToDo = Object.values(props.fechaCreacion).join("/")
-  // console.log(props.reference)
+
   return (
     <>
       <li className='item-todo'>
@@ -13,7 +13,7 @@ export function TodoItem(props) {
             // src={`../../assets/checked-${props.completed}.png`} //condicional que me valida para cambiar el color del check
             alt="check" id='check' 
             className='icons'
-            onClick={props.onChecked}
+            onClick={()=>{props.onChecked()}}
             />
 
           <span className={`${props.completed && 'todo-checked'}`}>{props.text}</span>
