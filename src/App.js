@@ -93,7 +93,7 @@ function App() {
       </div>
 
       <div className="todo-container">
-        <TodoCounter user={usuarioActivo} />
+        <TodoCounter user={usuarioActivo} usersLS={usersLS}/>
 
         <TodoSearch buscarTodo={buscarTodo} setBuscarTodo={setBuscarTodo} />
 
