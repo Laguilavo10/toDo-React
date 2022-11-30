@@ -14,7 +14,6 @@
     --back-containers: #3d4351;
     --naraja: #fc755b;
     --back-modal: rgba(0, 0, 0, 0.801);
-
     --color-green: #00a878;
     --color-red: #fe5e41;
     --color-button: #fdffff;
@@ -85,14 +84,7 @@ body {
 }
 
 #root {
-    /* background-color: var(--color-todo);
-    display: flex;
-    flex-direction: column; */
-
-    margin: 2rem;
-    /* border-radius: 20px; */
-    /* padding: 30px; */
-    /* min-width: 300px; */
+    margin: 1rem;
 }
 
 .todo-container {
@@ -102,6 +94,8 @@ body {
     border-radius: 20px;
     padding: 20px;
     min-width: 300px;
+    max-width: 1000px;
+    margin: 20px auto;
 }
 
 .profiles-container {
@@ -360,6 +354,11 @@ body {
 
 .modal-user {
     top: 15%;
+}
+
+.no-tareas{
+    display: flex;
+    margin: 20px 0 0 0 ;
 }
 
 @media (width < 300px) {
